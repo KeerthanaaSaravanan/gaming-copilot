@@ -1,0 +1,18 @@
+## Logitech G Pro X Gaming Headset FAQ
+
+**Q: My G Pro X headset audio keeps cutting out or dropping.**
+A: Audio drops can be caused by wireless interference. Try moving your wireless receiver closer to your headset, away from other wireless devices (like routers or other 2.4GHz peripherals). Ensure your drivers are up to date via G HUB.
+
+**Q: The microphone on my G Pro X headset isn't working or sounds muffled.**
+A: First, check if the microphone is properly connected and not muted, either physically on the cable or digitally in G HUB/system settings. Ensure you have the latest G HUB drivers installed. Sometimes, a full system restart can resolve driver conflicts. For muffled sound, check the mic foam wind screen for blockages.
+
+**Q: How do I enable Blue VO!CE on my G Pro X headset?**
+A: Blue VO!CE features are enabled through the Logitech G HUB software. Select your G Pro X headset, go to the "Microphone" tab, and toggle the Blue VO!CE option on. You can then customize various vocal presets and equalization settings.
+
+## Logitech G432 Gaming Headset FAQ
+
+**Q: I have no sound from my G432 headset.**
+A: Ensure the headset is properly plugged into the correct audio jacks (or USB adapter). Check your sound output settings in Windows/macOS to ensure the G432 is selected as the default output device. Increase volume on the headset's inline control.
+
+**Q: My G432 microphone is too quiet or not detected.**
+A: Verify the microphone isn't muted. Check your input device settings in G HUB and your operating system, ensuring the G432 mic is selected and input volume is maximized. Some applications have their own mic volume controls.

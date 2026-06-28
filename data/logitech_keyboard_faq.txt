@@ -1,0 +1,18 @@
+## Logitech G915 LIGHTSPEED Wireless RGB Mechanical Gaming Keyboard FAQ
+
+**Q: My G915 keyboard macros are not triggering or failing.**
+A: Ensure your macros are correctly assigned to G-keys within the Logitech G HUB software. Check for conflicting keybinds in games or other applications. Make sure G HUB is running in the background. Sometimes, re-saving the macro profile can resolve issues.
+
+**Q: What causes key chatter or double-typing on my G915 keyboard?**
+A: Key chatter, where a single key press registers multiple times, can be a sign of dust or debris under the keycap or a faulty switch. Try cleaning the switch with compressed air. If it persists, the switch might need replacement or the keyboard may need servicing.
+
+**Q: How do I update the firmware on my G915 keyboard?**
+A: Firmware updates for the G915 are managed through the Logitech G HUB software. Open G HUB, select your G915 keyboard, and if an update is available, a notification will appear. Follow the on-screen prompts to complete the update.
+
+## Logitech G213 Prodigy Gaming Keyboard FAQ
+
+**Q: My G213 keyboard RGB lighting isn't working correctly.**
+A: Check the lighting settings in Logitech G HUB. Ensure a lighting effect is selected and brightness is turned up. Conflicts with other RGB software can also cause issues. Try disabling other RGB software.
+
+**Q: Some keys on my G213 keyboard are unresponsive.**
+A: Unresponsive keys can be due to debris under the keycap, a software glitch, or a hardware defect. Try removing the keycap and cleaning underneath. Test the keyboard on another computer to rule out software issues on your primary machine.

@@ -1,0 +1,21 @@
+## Logitech G502 Hero Gaming Mouse FAQ
+
+**Q: My G502 mouse is double-clicking randomly. How can I fix this?**
+A: Double-clicking issues can sometimes be resolved by cleaning the mouse switches with compressed air. If the problem persists, try updating your G HUB software and mouse firmware. If it's still occurring, it might be a hardware issue, and you should contact Logitech support for an RMA.
+
+**Q: How do I change the DPI on my G502 Hero?**
+A: You can change the DPI settings using the Logitech G HUB software. Open G HUB, select your G502 mouse, and navigate to the "Sensitivity (DPI)" section. You can set up to 5 DPI levels and assign them to buttons.
+
+**Q: My G502 scroll wheel is loose or not responding properly.**
+A: A loose scroll wheel can sometimes be fixed by gently pushing it back into place. Ensure there's no debris lodged around the scroll wheel mechanism. If the issue continues, it may require a hardware replacement.
+
+## Logitech G Pro Wireless Gaming Mouse FAQ
+
+**Q: What are common issues with the G Pro Wireless mouse?**
+A: Common issues include potential double-clicking (similar to G502), sensor flickering if the mousepad is dirty, or connectivity problems if the USB receiver is too far from the mouse or obstructed.
+
+**Q: How do I pair my G Pro Wireless receiver if it's lost or not connecting?**
+A: You can re-pair your G Pro Wireless mouse using the Logitech G HUB software. Go to settings, select "Device Pairing Tool," and follow the instructions to connect your mouse with a new or existing LIGHTSPEED receiver.
+
+**Q: My G Pro mouse tracking is inconsistent.**
+A: Inconsistent tracking can be due to a dirty mouse sensor, an unsuitable mousepad surface (very reflective or multi-colored surfaces can confuse the sensor), or interference from other wireless devices. Clean the sensor and try a different mousepad.
