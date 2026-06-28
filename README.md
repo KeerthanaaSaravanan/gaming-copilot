@@ -1,6 +1,6 @@
-# Logitech AI Gaming Co-Pilot
+# AI Gaming Co-Pilot
 
-> An autonomous AI agent that diagnoses Logitech gaming device issues,
+> An autonomous AI agent that diagnoses gaming device issues,
 > retrieves solutions from real documentation, and guides users step-by-step
 > until the problem is solved.
 
@@ -81,7 +81,7 @@ docker-compose up
 ## Why This Is Not a Chatbot
 
 - Plans before acting — LLM decides which tools to call based on the problem
-- Uses real Logitech documentation via RAG, not just training data
+- Uses real company's documentation via RAG, not just training data
 - Loops and re-plans if the issue is not resolved after first attempt
 - Logs every session with user feedback rating to JSON
 

@@ -1,4 +1,4 @@
-# Logitech AI Gaming Co-Pilot — Architecture
+# AI Gaming Co-Pilot — Architecture
 
 ## System Flow
 
