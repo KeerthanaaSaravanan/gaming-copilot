@@ -1,16 +1,0 @@
-INFO:     Will watch for changes in these directories: ['C:\\Users\\admin\\OneDrive\\Desktop\\gaming-copilot-rag']
-INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
-INFO:     Started reloader process [26132] using WatchFiles
-WARNING:  WatchFiles detected changes in 'venv\Lib\site-packages\langsmith\_openapi_client\resources\datasets\splits.py', 'venv\Lib\site-packages\langsmith\_openapi_client\resources\datasets\__init__.py', 'venv\Lib\site-packages\langsmith\_openapi_client\resources\datasets\versions.py'. Reloading...
-Starting FastAPI application...
- INFO:     Started server process [15892]
-INFO:     Waiting for application startup.
-C:\Users\admin\OneDrive\Desktop\gaming-copilot-rag\retriever.py:29: LangChainDeprecationWarning: The class `HuggingFaceEmbeddings` was deprecated in LangChain 0.2.2 and will be removed in 1.0. An updated version of the class exists in the `langchain-huggingface package and should be used instead. To use it run `pip install -U `langchain-huggingface` and import as `from `langchain_huggingface import HuggingFaceEmbeddings``.
-  self.embeddings = SentenceTransformerEmbeddings(model_name=EMBEDDING_MODEL_NAME)
-Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
-Application startup: Initializing Retriever...
-Initializing embeddings with model: all-MiniLM-L6-v2
-Loading weights:   0%|          | 0/103 [00:00<?, ?it/s]Loading weights: 100%|##########| 103/103 [00:00<00:00, 1444.85it/s]
-C:\Users\admin\OneDrive\Desktop\gaming-copilot-rag\retriever.py:36: LangChainDeprecationWarning: The class `Chroma` was deprecated in LangChain 0.2.9 and will be removed in 1.0. An updated version of the class exists in the `langchain-chroma package and should be used instead. To use it run `pip install -U `langchain-chroma` and import as `from `langchain_chroma import Chroma``.
-  self.vectordb = Chroma(persist_directory=CHROMA_DB_DIR, embedding_function=self.embeddings)
-INFO:     Application startup complete.
