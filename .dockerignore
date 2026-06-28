@@ -1,0 +1,54 @@
+# Ignore Dockerfiles
+Dockerfile
+docker-compose.yml
+
+# Ignore .NET artifacts
+bin/
+obj/
+*.csproj
+*.sln
+
+# Ignore Python cache
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.git
+.mypy_cache
+.pytest_cache
+.hypothesis
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore logs
+logs/
+*.log
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore miscellaneous
+.DS_Store
+Thumbs.db
+
+# Ignore the GamingCoPilot directory (since it's not needed for the RAG service)
+GamingCoPilot/

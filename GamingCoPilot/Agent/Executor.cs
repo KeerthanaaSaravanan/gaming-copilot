@@ -9,13 +9,13 @@ namespace GamingCoPilot.Agent
     /// </summary>
     public class Executor
     {
-        private readonly ToolRegistry _toolRegistry;
+        private readonly IToolRegistry _toolRegistry;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Executor"/> class.
         /// </summary>
         /// <param name="toolRegistry">The tool registry to retrieve and execute tools.</param>
-        public Executor(ToolRegistry toolRegistry)
+        public Executor(IToolRegistry toolRegistry)
         {
             _toolRegistry = toolRegistry;
         }

@@ -3,10 +3,10 @@ from typing import List, Dict, Any
 import json
 
 from dotenv import load_dotenv
-from langchain.embeddings import SentenceTransformerEmbeddings
-from langchain.vectorstores import Chroma
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import ChatPromptTemplate
+from langchain_community.embeddings import SentenceTransformerEmbeddings
+from langchain_community.vectorstores import Chroma
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.prompts import ChatPromptTemplate
 
 # Load environment variables
 load_dotenv()
@@ -14,8 +14,8 @@ load_dotenv()
 # Configuration
 CHROMA_DB_DIR = "./chroma_db"
 EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-LLM_MODEL_NAME = "gpt-3.5-turbo"
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+LLM_MODEL_NAME = "gemini-pro"
 
 class Retriever:
     """
@@ -36,12 +36,12 @@ class Retriever:
         self.vectordb = Chroma(persist_directory=CHROMA_DB_DIR, embedding_function=self.embeddings)
         print("ChromaDB loaded successfully.")
 
-        if not OPENAI_API_KEY:
-            print("Warning: OPENAI_API_KEY not found in environment variables. Query expansion will not work.")
+        if not GOOGLE_API_KEY:
+            print("Warning: GOOGLE_API_KEY not found in environment variables. Query expansion will not work.")
             self.llm = None
         else:
             print(f"Initializing LLM with model: {LLM_MODEL_NAME}")
-            self.llm = ChatOpenAI(model=LLM_MODEL_NAME, temperature=0, api_key=OPENAI_API_KEY)
+            self.llm = ChatGoogleGenerativeAI(model=LLM_MODEL_NAME, temperature=0, google_api_key=GOOGLE_API_KEY)
 
         # Prompt for query expansion
         self.query_expansion_prompt = ChatPromptTemplate.from_messages([
@@ -116,7 +116,7 @@ class Retriever:
         return all_results[:top_k]
 
 if __name__ == "__main__":
-    # Example usage (requires OPENAI_API_KEY in .env and ingested ChromaDB)
+    # Example usage (requires GOOGLE_API_KEY in .env and ingested ChromaDB)
     # First, run 'python gaming-copilot-rag/ingestion.py' to create the DB
     retriever = Retriever()
 

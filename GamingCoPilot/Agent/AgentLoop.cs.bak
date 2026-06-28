@@ -14,9 +14,7 @@ namespace GamingCoPilot.Agent
         private readonly Planner _planner;
         private readonly Executor _executor;
         private readonly AgentMemory _memory;
-        private readonly ILLMService _llmService;
-        private readonly SessionLogger _sessionLogger;
-        private readonly FeedbackCollector _feedbackCollector;
+        private readonly LLMService _llmService;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AgentLoop"/> class.
@@ -25,16 +23,12 @@ namespace GamingCoPilot.Agent
         /// <param name="executor">The executor component.</param>
         /// <param name="memory">The agent memory component.</param>
         /// <param name="llmService">The LLM service for final response generation.</param>
-        /// <param name="sessionLogger">The session logger.</param>
-        /// <param name="feedbackCollector">The feedback collector.</param>
-        public AgentLoop(Planner planner, Executor executor, AgentMemory memory, ILLMService llmService, SessionLogger sessionLogger, FeedbackCollector feedbackCollector)
+        public AgentLoop(Planner planner, Executor executor, AgentMemory memory, LLMService llmService)
         {
             _planner = planner;
             _executor = executor;
             _memory = memory;
             _llmService = llmService;
-            _sessionLogger = sessionLogger;
-            _feedbackCollector = feedbackCollector;
         }
 
         /// <summary>
@@ -58,9 +52,6 @@ namespace GamingCoPilot.Agent
                 // 2. Planner sends to LLM, gets ToolPlan
                 ToolPlan plan = await _planner.CreateToolPlan(currentContext);
 
-                // Collect tool names that will be used in this iteration
-                var toolsUsed = plan.Tools.Select(t => t.Name).ToList();
-
                 // 3. Executor calls each tool, appends result to context
                 foreach (var toolCall in plan.Tools)
                 {
@@ -74,7 +65,7 @@ namespace GamingCoPilot.Agent
                                            "and the results from the tools, provide a structured response including " +
                                            "a diagnosis, step-by-step fix guide, and recommended settings if applicable. " +
                                            "Format your response as a JSON object: " +
-                                               "{ \"diagnosis\": \"\", \"steps\": [\"\", \"\"], \"settings\": \"\", \"resolved\": false }";
+                                               "{ \\\"diagnosis\\\": \\\"\\\", \\\"steps\\\": [\\\"\\\", \\\"\\\"], \\\"settings\\\": \\\"\\\", \\\"resolved\\\": false }";
 
                 string finalUserMessage = $"Conversation context: {currentContext}";
 
@@ -112,14 +103,12 @@ namespace GamingCoPilot.Agent
 
                 // 5. Agent asks "Did this resolve your issue? (yes/no)"
                 Console.Write("Did this resolve your issue? (yes/no): ");
-                string? userFeedback = Console.ReadLine()?.Trim().ToLowerInvariant();
+                string? userFeedback = Console.ReadLine()?.ToLowerInvariant();
 
-                if (userFeedback == "yes" || userFeedback == "y")
+                if (userFeedback == "yes")
                 {
                     resolved = true;
-                    int rating = await _feedbackCollector.CollectRatingAsync();
-                    _sessionLogger.LogSession(userProblem, toolsUsed, finalLlmResponseJson, rating);
-                    Console.WriteLine("Session saved. Thank you for using Logitech AI Co-Pilot!");
+                    Console.WriteLine("Great! I'm glad I could help. Session logged.");
                 }
                 else
                 {

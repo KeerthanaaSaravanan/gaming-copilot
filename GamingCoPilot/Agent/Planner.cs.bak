@@ -9,18 +9,18 @@ namespace GamingCoPilot.Agent
 {
     /// <summary>
     /// Responsible for interacting with the LLM to create a plan of tool calls.
-    /// </>
+    /// </summary>
     public class Planner
     {
-        private readonly ILLMService _llmService;
-        private readonly IToolRegistry _toolRegistry;
+        private readonly LLMService _llmService;
+        private readonly ToolRegistry _toolRegistry;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Planner"/> class.
         /// </summary>
         /// <param name="llmService">The LLM service.</param>
         /// <param name="toolRegistry">The tool registry containing available tools.</param>
-        public Planner(ILLMService llmService, IToolRegistry toolRegistry)
+        public Planner(LLMService llmService, ToolRegistry toolRegistry)
         {
             _llmService = llmService;
             _toolRegistry = toolRegistry;
@@ -41,7 +41,7 @@ namespace GamingCoPilot.Agent
                                   "\n\nBased on the user's problem and the conversation history, " +
                                   "decide which tools to call. You can call multiple tools in a single response. " +
                                   "Provide your response as a JSON object in the following format:\n" +
-                                  "{ \"tools\": [ { \"name\": \"ToolName\", \"input\": \"ToolInput\" }, ... ] }\n" +
+                                  "{ \\\"tools\\\": [ { \\\"name\\\": \\\"ToolName\\\", \\\"input\\\": \\\"ToolInput\\\" }, ... ] }\n" +
                                   "If no tools are needed, return an empty array for 'tools'.";
 
             // Send the problem and tool descriptions to the LLM.

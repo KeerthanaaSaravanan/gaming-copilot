@@ -29,6 +29,23 @@ namespace GamingCoPilot.Agent
         }
 
         /// <summary>
+        /// Clears all messages from the conversation memory.
+        /// </>
+        public void Clear()
+        {
+            _messages.Clear();
+        }
+
+        /// <summary>
+        /// Gets the conversation history as a read-only list.
+        /// </summary>
+        /// <returns>Read-only list of messages in the conversation history.</returns>
+        public IReadOnlyList<Message> GetHistory()
+        {
+            return _messages.AsReadOnly();
+        }
+
+        /// <summary>
         /// Retrieves the full conversation context as a formatted string.
         /// </summary>
         /// <returns>A string representation of the conversation history.</returns>

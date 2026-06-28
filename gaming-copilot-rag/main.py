@@ -1,5 +1,6 @@
 import uvicorn
 from fastapi import FastAPI, HTTPException, status
+from typing import Dict
 from fastapi.responses import JSONResponse
 from contextlib import asynccontextmanager
 import os
@@ -81,7 +82,7 @@ async def expanded_search_documents(request: ExpandedSearchRequest):
                             detail="Retriever not initialized. Please run /ingest first.")
     if not app.state.retriever.llm:
         raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
-                            detail="LLM not configured for query expansion. Please set OPENAI_API_KEY in your environment.")
+                            detail="LLM not configured for query expansion. Please set GOOGLE_API_KEY in your environment.")
 
     print(f"API: Received request to /search/expanded with query: '{request.query}', top_k: {request.top_k}")
     results = await app.state.retriever.expanded_search(request.query, request.top_k)
