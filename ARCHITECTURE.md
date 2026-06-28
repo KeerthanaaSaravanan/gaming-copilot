@@ -2,23 +2,25 @@
 
 ## System Flow
 
+```
 User Input
     ↓
 AgentLoop (C# .NET 8)
     ↓
-Planner → LLM (OpenAI) → ToolPlan JSON
+Planner → LLM (Gemini) → ToolPlan JSON
     ↓
 Executor runs tools in sequence:
 ┌─────────────────────────────────────────────────┐
-│ RAGSearchTool    → Python FastAPI → ChromaDB    │
-│ DiagnosticTool   → Symptom dictionary (15 maps) │
-│ SettingsOptimizer→ Game genre rules engine      │
+│ RAGSearchTool     → Python FastAPI → ChromaDB   │
+│ DiagnosticTool    → Symptom dictionary (15 maps)│
+│ SettingsOptimizer → Game genre rules engine     │
 │ StepGuideGenerator→ LLM generates fix steps    │
 └─────────────────────────────────────────────────┘
     ↓
 Final LLM call → Structured AgentResponse
     ↓
 Console Output + Session logged to JSON
+```
 
 ## Tool Descriptions
 
