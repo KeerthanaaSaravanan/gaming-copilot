@@ -2,7 +2,6 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Http;
-using Microsoft.Extensions.Configuration;
 using GamingCoPilot.Agent;
 using GamingCoPilot.Services;
 using GamingCoPilot.Tools;
@@ -24,17 +23,10 @@ namespace GamingCoPilot
                     return;
                 }
 
+                var ragServiceUrl = Environment.GetEnvironmentVariable("RAG_SERVICE_URL") ?? "http://localhost:8000";
+
                 // Set up dependency injection
                 var services = new ServiceCollection();
-
-                // Add configuration
-                var configuration = new ConfigurationBuilder()
-                    .AddEnvironmentVariables()
-                    .Build();
-                services.AddSingleton<IConfiguration>(configuration);
-
-                // Get RAG service URL from configuration (with fallback)
-                var ragServiceUrl = configuration["RAG_SERVICE_URL"] ?? "http://localhost:8000";
 
                 // Register HttpClient factory
                 services.AddHttpClient();
@@ -71,14 +63,6 @@ namespace GamingCoPilot
 
                 // Build service provider
                 using var serviceProvider = services.BuildServiceProvider();
-
-                // Populate the tool registry with all available tools
-                var toolRegistry = serviceProvider.GetRequiredService<IToolRegistry>();
-                var tools = serviceProvider.GetServices<IAgentTool>();
-                foreach (var tool in tools)
-                {
-                    toolRegistry.Register(tool);
-                }
 
                 // Get the AgentLoop instance and run it
                 var agentLoop = serviceProvider.GetRequiredService<AgentLoop>();

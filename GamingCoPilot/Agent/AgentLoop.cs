@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GamingCoPilot.Models;
 using GamingCoPilot.Services;
@@ -58,6 +59,17 @@ namespace GamingCoPilot.Agent
                 // 2. Planner sends to LLM, gets ToolPlan
                 ToolPlan plan = await _planner.CreateToolPlan(currentContext);
 
+                // Safety fallback: if planner returns no tools, use default tools
+                if (plan.Tools == null || plan.Tools.Count == 0)
+                {
+                    Console.WriteLine("Planner returned no tools — falling back to default tools.");
+                    plan.Tools = new List<ToolCall>
+                    {
+                        new ToolCall { Name = "DiagnosticTool", Input = userProblem },
+                        new ToolCall { Name = "RAGSearch", Input = userProblem }
+                    };
+                }
+
                 // Collect tool names that will be used in this iteration
                 var toolsUsed = plan.Tools.Select(t => t.Name).ToList();
 
@@ -70,12 +82,18 @@ namespace GamingCoPilot.Agent
                 }
 
                 // 4. Final LLM call with all tool results → generates structured response
-                string finalSystemPrompt = "You are a helpful gaming copilot. Based on the user's problem, " +
-                                           "and the results from the tools, provide a structured response including " +
-                                           "a diagnosis, step-by-step fix guide, and recommended settings if applicable. " +
-                                           "Format your response as a JSON object: " +
-                                               "{ \"diagnosis\": \"\", \"steps\": [\"\", \"\"], \"settings\": \"\", \"resolved\": false }";
-
+                string finalSystemPrompt = "You are a helpful gaming copilot. " +
+           "Based on the user's problem and tool results, provide a CONCISE response. " +
+           "Each step must be ONE SHORT SENTENCE under 15 words. No markdown, no bold, " +
+           "no asterisks. Maximum 4 steps total. " +
+           "Return ONLY valid JSON with no extra text before or after. " +
+           "Format: " +
+           "{ " +
+           "\"diagnosis\": \"one sentence diagnosis\", " +
+           "\"steps\": [\"short step\", \"short step\", \"short step\", \"short step\"], " +
+           "\"settings\": \"one short recommendation or empty string\", " +
+           "\"resolved\": false " +
+           "}";
                 string finalUserMessage = $"Conversation context: {currentContext}";
 
                 string finalLlmResponseJson = await _llmService.CompleteAsync(finalSystemPrompt, finalUserMessage);

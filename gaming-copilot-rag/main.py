@@ -66,7 +66,7 @@ async def search_documents(request: SearchRequest):
                             detail="Retriever not initialized. Please run /ingest first.")
 
     print(f"API: Received request to /search with query: '{request.query}', top_k: {request.top_k}")
-    results = await app.state.retriever.semantic_search(request.query, request.top_k)
+    results = app.state.retriever.semantic_search(request.query, request.top_k)
     return SearchResponse(query=request.query, results=results)
 
 @app.post("/search/expanded", response_model=SearchResponse, summary="Expanded Semantic Search with Query Expansion")

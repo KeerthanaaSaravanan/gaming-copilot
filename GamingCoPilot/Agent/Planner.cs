@@ -36,13 +36,22 @@ namespace GamingCoPilot.Agent
             // Construct a system prompt that describes all available tools.
             string toolDescriptions = _toolRegistry.GetToolDescriptions();
             string systemPrompt = "You are an AI assistant designed to help users with gaming-related issues. " +
-                                  "You have access to the following tools:\n\n" +
-                                  toolDescriptions +
-                                  "\n\nBased on the user's problem and the conversation history, " +
-                                  "decide which tools to call. You can call multiple tools in a single response. " +
-                                  "Provide your response as a JSON object in the following format:\n" +
-                                  "{ \"tools\": [ { \"name\": \"ToolName\", \"input\": \"ToolInput\" }, ... ] }\n" +
-                                  "If no tools are needed, return an empty array for 'tools'.";
+                      "You have access to the following tools:\n\n" +
+                      toolDescriptions +
+                      "\n\nIMPORTANT RULES:\n" +
+                      "1. You MUST call at least one tool for every user problem. Never return an empty tools array.\n" +
+                      "2. For ANY device problem mentioned (mouse, keyboard, headset, webcam), ALWAYS call DiagnosticTool with the key symptom phrase as input.\n" +
+                      "3. ALWAYS call RAGSearch with the user's problem as input to check official documentation.\n" +
+                      "4. If the user mentions game settings, DPI, or sensitivity, also call SettingsOptimizer.\n" +
+                      "5. After diagnosis, ALWAYS call StepGuideGenerator with the diagnosis as input to get fix steps.\n\n" +
+                      "Example for input 'my mouse double clicks':\n" +
+                      "{ \"Tools\": [ { \"Name\": \"DiagnosticTool\", \"Input\": \"double click\" }, { \"Name\": \"RAGSearch\", \"Input\": \"mouse double click fix\" }, { \"Name\": \"StepGuideGenerator\", \"Input\": \"mouse double click issue\" } ] }\n\n" +
+                      "Based on the user's problem and conversation history, decide which tools to call. " +
+                      "You may call multiple tools. " +
+                      "Return ONLY valid JSON. " +
+                      "Do not use markdown or explanations.\n\n" +
+                      "Format:\n" +
+                      "{ \"Tools\": [ { \"Name\": \"ToolName\", \"Input\": \"ToolInput\" } ] }";
 
             // Send the problem and tool descriptions to the LLM.
             string userMessage = $"Current conversation and user problem: {context}";

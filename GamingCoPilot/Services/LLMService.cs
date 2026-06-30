@@ -30,7 +30,7 @@ namespace GamingCoPilot.Services
     {
         private readonly IHttpClientFactory _httpClientFactory;
         private const string Model = "gemini-2.5-flash";
-        private const int MaxTokens = 1000;
+        private const int MaxTokens = 3000;
 
         /// <summary>
         /// Initializes a new instance of the LLMService class.
@@ -52,7 +52,7 @@ namespace GamingCoPilot.Services
         public async Task<string> CompleteAsync(string systemPrompt, string userMessage)
         {
             var client = _httpClientFactory.CreateClient("GoogleAIClient");
-
+            
             var request = new
             {
                 model = Model,
@@ -62,7 +62,11 @@ namespace GamingCoPilot.Services
                     new { role = "user", content = userMessage }
                 },
                 max_tokens = MaxTokens,
-                temperature = 0.7
+                temperature = 0.7,
+                response_format = new
+                {
+                    type = "json_object"
+                }
             };
 
             var json = JsonSerializer.Serialize(request);
@@ -74,18 +78,11 @@ namespace GamingCoPilot.Services
                 throw new InvalidOperationException("GEMINI_API_KEY environment variable is not set.");
             }
 
-            // Debug: Output the API key length
-            Console.WriteLine($"API key length: {apiKey.Length}");
-
             client.DefaultRequestHeaders.Authorization =
                 new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", apiKey);
 
             // Debug: Output the request URL
             var requestUrl = new Uri(client.BaseAddress, "chat/completions");
-            Console.WriteLine($"Request URL: {requestUrl}");
-
-            // Debug: Output the request body
-            Console.WriteLine($"Request body: {json}");
 
             var response = await client.PostAsync("chat/completions", content);
             Console.WriteLine($"Response status: {response.StatusCode}");
@@ -116,7 +113,14 @@ namespace GamingCoPilot.Services
             }
             var messageObj = firstChoice.GetProperty("message");
             var contentProp = messageObj.GetProperty("content");
-            return contentProp.GetString() ?? string.Empty;
+            var finalContent = contentProp.GetString() ?? string.Empty;
+
+            finalContent = finalContent
+                .Replace("```json", "")
+                .Replace("```", "")
+                .Trim();
+
+            return finalContent;
         }
 
         /// <summary>
@@ -151,8 +155,8 @@ namespace GamingCoPilot.Services
             }
 
             // Try to find the first '{' and last '}' and extract the substring
-            int start = input.IndexOf('{');
-            int end = input.LastIndexOf('}');
+            int start = input.IndexOfAny(new[] { '{', '[' });
+            int end = Math.Max(input.LastIndexOf('}'), input.LastIndexOf(']'));
             if (start >= 0 && end > start)
             {
                 return input.Substring(start, end - start + 1);
