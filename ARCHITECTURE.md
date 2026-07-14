@@ -1,4 +1,4 @@
-# AI Gaming Co-Pilot — Architecture
+# contAI Gaming Co-Pilot — Architecture
 
 ## System Flow
 

@@ -91,6 +91,7 @@ docker-compose up
 - SettingsOptimizerTests
 - AgentMemoryTests
 - ToolRegistryTests
+![alt text](image.png)
 
 ## Future Scope
 - Integration with Logitech G HUB API for real device telemetry
